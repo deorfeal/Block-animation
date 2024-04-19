@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animation</title>
+    <link rel="stylesheet" href="css/style.min.css">
+</head>
+
+<body>
+
+    <div class="translate">
+        <div class="container">
+            <p class="translate__text">
+                Перевод с любого языка на любой язык. Просто запишите звукозапись или загрузите файл.
+            </p>
+            <div class="translate__file">
+                <p class="translate__file-text">
+                    Загрузить файл
+                </p>
+                <input class="translate__file-input" type="file">
+            </div>
+            <div class="translate__record record">
+                <div class="record__circle"></div>
+                <div class="record__figure figure">
+                    <div class="glowy-blob">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+                        <defs>
+                            <filter id="goo">
+                                <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+                                <feColorMatrix in="blur" mode="matrix"
+                                    values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="goo" />
+                                <feComposite in="SourceGraphic" in2="goo" operator="atop" />
+                            </filter>
+                        </defs>
+                    </svg>
+                </div>
+                <div class="record__inner">
+                    <div class="record__icons">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 38 38" fill="none">
+                            <g clip-path="url(#clip0_2036_245)">
+                                <path
+                                    d="M19 0C8.50614 0 0 8.50614 0 19C0 29.4939 8.50614 38 19 38C29.4939 38 38 29.4939 38 19C38 8.50614 29.4939 0 19 0ZM19 35.0312C10.1459 35.0312 2.96875 27.8541 2.96875 19C2.96875 10.1459 10.1459 2.96875 19 2.96875C27.8541 2.96875 35.0312 10.1459 35.0312 19C35.0312 27.8541 27.8541 35.0312 19 35.0312Z"
+                                    fill="white" />
+                                <path
+                                    d="M24.9375 19C24.9375 22.2796 22.2796 24.9375 19 24.9375C15.7204 24.9375 13.0625 22.2796 13.0625 19C13.0625 15.7204 15.7204 13.0625 19 13.0625C22.2796 13.0625 24.9375 15.7204 24.9375 19Z"
+                                    fill="#FF0000" />
+                            </g>
+                            <defs>
+                                <clipPath id="clip0_2036_245">
+                                    <rect width="38" height="38" fill="white" />
+                                </clipPath>
+                            </defs>
+                        </svg>
+                    </div>
+                    <p class="record__text">
+                        записать <br>
+                        голос
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script>
+        var doms = document.getElementsByClassName("glowy-blob");
+
+        var selected = 0;
+
+        for (var x = 0; x < doms.length; x++) {
+            for (var i = 0; i < doms[x].children.length; i++) {
+                doms[x].children[i].addEventListener("mousedown", function (e) {
+                    selected = this;
+                })
+            }
+        }
+
+        window.addEventListener("mouseup", function (e) {
+            selected.style.animation = "bounceback 1s ease";
+            selected.style.animationFillMode = "forwards";
+            var lala = selected;
+            selected = null;
+
+            setTimeout(function () {
+                lala.style.animation = "";
+                lala.style.animationFillMode = "";
+                lala.style.left = "";
+                lala.style.top = "";
+            }, 1000)
+
+        })
+
+        window.addEventListener("mousemove", function (e) {
+            if (selected == null || !selected) return;
+            selected.style.left = (e.clientX - (selected.getBoundingClientRect().width / 2) - window.innerWidth / 2) + "px"
+            selected.style.top = (e.clientY - (selected.getBoundingClientRect().height / 2) - window.innerHeight / 2) + "px"
+            selected.style.animation = 0;
+        })
+    </script>
+    <script src="js/main.min.js"></script>
+</body>
+
+</html>
